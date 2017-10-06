@@ -332,7 +332,7 @@ public class TypeCastExprTest {
         BTestUtils.compile("test-src/expressions/typecast/incompatible-struct-cast.bal");
     }
 
-    @Test(description = "Test casting a JSON integer to a string")
+    @Test(enabled = false, description = "Test casting a JSON integer to a string")
     public void testJsonIntToString() {
         BValue[] returns = BTestUtils.invoke(result, "testJsonIntToString", new BValue[]{});
         Assert.assertTrue(returns[0] instanceof BString);
