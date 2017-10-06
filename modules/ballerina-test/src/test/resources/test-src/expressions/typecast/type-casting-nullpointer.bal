@@ -125,3 +125,17 @@ function testAnyNullToStruct() (Person) {
     p, _ = (Person) a;
     return p;
 }
+//todo
+function testErrorInForceCasting()(A, error) {
+    B b = {x: "x-valueof-b"};
+    A a;
+    TypeCastError castError;
+    a, castError = (A) b;
+
+    Error error;
+    if (castError != null) {
+        error = (error) castError;
+    }
+
+    return a, error;
+}

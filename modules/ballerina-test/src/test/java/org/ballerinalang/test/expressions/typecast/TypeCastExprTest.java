@@ -80,7 +80,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(returns[0].stringValue(), expected);
     }
 
-    @Test()
+    @Test
     public void testIntToFloat() {
         BValue[] args = {new BInteger(55555555)};
         BValue[] returns = BTestUtils.invoke(result, "inttofloat", args);
@@ -89,7 +89,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(((BFloat) returns[0]).floatValue(), expected, DELTA);
     }
 
-    @Test()
+    @Test
     public void testStringToInt() {
         BValue[] args = {new BString("100")};
         BValue[] returns = BTestUtils.invoke(result, "stringtoint", args);
@@ -98,7 +98,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(returns[0].stringValue(), expected);
     }
 
-    @Test()
+    @Test
     public void testStringToFloat() {
         BValue[] args = {new BString("2222.333f")};
         BValue[] returns = BTestUtils.invoke(result, "stringtofloat", args);
@@ -107,7 +107,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(((BFloat) returns[0]).floatValue(), expected, DELTA);
     }
 
-    @Test()
+    @Test
     public void testStringToJSON() {
         BValue[] args = {new BString("{\"name\":\"chanaka\"}")};
         BValue[] returns = BTestUtils.invoke(result, "testStringToJson", args);
@@ -125,7 +125,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(returns[0].stringValue(), expected);
     }
 
-    @Test()
+    @Test
     public void testIntToString() {
         BValue[] args = {new BInteger(111)};
         BValue[] returns = BTestUtils.invoke(result, "inttostring", args);
@@ -134,7 +134,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(returns[0].stringValue(), expected);
     }
 
-    @Test()
+    @Test
     public void testFloatToString() {
         BValue[] args = {new BFloat(111.333f)};
         BValue[] returns = BTestUtils.invoke(result, "floattostring", args);
@@ -143,7 +143,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(returns[0].stringValue().substring(0, 7), expected);
     }
 
-    @Test()
+    @Test
     public void testBooleanToString() {
         BValue[] args = {new BBoolean(true)};
         BValue[] returns = BTestUtils.invoke(result, "booleantostring", args);
@@ -153,7 +153,7 @@ public class TypeCastExprTest {
     }
 
 
-    @Test()
+    @Test
     public void testBooleanAppendToString() {
         BValue[] args = {new BBoolean(true)};
         BValue[] returns = BTestUtils.invoke(result, "booleanappendtostring", args);
@@ -174,14 +174,14 @@ public class TypeCastExprTest {
 //
     //------
 
-    @Test()
+    @Test
     public void testJSONToString() {
         BValue[] returns = BTestUtils.invoke(result, "testJsonToStringCast", new BValue[]{});
         Assert.assertTrue(returns[0] instanceof BString);
         Assert.assertEquals(returns[0].stringValue(), "hello");
     }
 
-    @Test()
+    @Test
     public void testJSONObjectToStringCast() {
         BValue[] returns = BTestUtils.invoke(result, "testJSONObjectToStringCast", new BValue[]{});
         Assert.assertTrue(returns[0] instanceof BString);
@@ -192,31 +192,28 @@ public class TypeCastExprTest {
                             "'json-object' cannot be converted to 'string'");
     }
 
-    //disabled becuase of JSON
-    @Test()
+    @Test
     public void testJsonToInt() {
         BValue[] returns = BTestUtils.invoke(result, "testJsonToInt", new BValue[]{});
         Assert.assertTrue(returns[0] instanceof BInteger);
         Assert.assertEquals(((BInteger) returns[0]).intValue(), 5);
     }
 
-    //disable because of json
-    @Test()
+    @Test
     public void testJsonToFloat() {
         BValue[] returns = BTestUtils.invoke(result, "testJsonToFloat", new BValue[]{});
         Assert.assertTrue(returns[0] instanceof BFloat);
         Assert.assertEquals(((BFloat) returns[0]).floatValue(), 7.65);
     }
 
-    //disable because of json
-    @Test()
+    @Test
     public void testJsonToBoolean() {
         BValue[] returns = BTestUtils.invoke(result, "testJsonToBoolean", new BValue[]{});
         Assert.assertTrue(returns[0] instanceof BBoolean);
         Assert.assertEquals(((BBoolean) returns[0]).booleanValue(), true);
     }
 
-    @Test()
+    @Test
     public void testIntArrayToLongArray() {
         BValue[] returns = BTestUtils.invoke(result, "intarrtofloatarr", new BValue[]{});
         Assert.assertTrue(returns[0] instanceof BFloatArray);
@@ -226,7 +223,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(result.get(2), 889.0, DELTA);
     }
 
-
+//no test case
     @Test(enabled = false)
     public void testSimpleJsonToMap() {
         BValue[] returns = BTestUtils.invoke(result, "testSimpleJsonToMap", new BValue[]{});
@@ -673,8 +670,7 @@ public class TypeCastExprTest {
         BTestUtils.compile("test-src/expressions/cast/casting-with-too-many-returns.bal");
     }
 
-//NEGATIVE
-    @Test()
+    @Test
     public void testAnyToStringWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToStringWithErrors", new BValue[]{});
 
@@ -737,7 +733,7 @@ public class TypeCastExprTest {
         Assert.assertNull(returns[1]);
     }
 
-    @Test()
+    @Test
     public void testAnyNullToStringWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToStringWithErrors", new BValue[]{});
 
@@ -752,7 +748,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(errorMsg, "'null' cannot be cast to 'string'");
     }
 
-    @Test()
+    @Test
     public void testAnyToBooleanWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToBooleanWithErrors", new BValue[]{});
 
@@ -766,7 +762,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(errorMsg, "'int' cannot be cast to 'boolean'");
     }
 
-    @Test()
+    @Test
     public void testAnyNullToBooleanWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToBooleanWithErrors", new BValue[]{});
 
@@ -780,7 +776,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(errorMsg, "'null' cannot be cast to 'boolean'");
     }
 
-    @Test()
+    @Test
     public void testAnyToIntWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToIntWithErrors", new BValue[]{});
 
@@ -794,7 +790,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(errorMsg, "'string' cannot be cast to 'int'");
     }
 
-    @Test()
+    @Test
     public void testAnyNullToIntWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToIntWithErrors", new BValue[]{});
 
@@ -808,7 +804,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(errorMsg, "'null' cannot be cast to 'int'");
     }
 
-    @Test()
+    @Test
     public void testAnyToFloatWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToFloatWithErrors", new BValue[]{});
 
@@ -822,7 +818,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(errorMsg, "'string' cannot be cast to 'float'");
     }
 
-    @Test()
+    @Test
     public void testAnyNullToFloatWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToFloatWithErrors", new BValue[]{});
 
@@ -836,7 +832,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(errorMsg, "'null' cannot be cast to 'float'");
     }
 
-    @Test()
+    @Test
     public void testAnyToMapWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToMapWithErrors", new BValue[]{});
 
