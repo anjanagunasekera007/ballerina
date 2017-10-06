@@ -1,5 +1,3 @@
-import ballerina.lang.errors;
-
 struct Person {
     string name;
     int age;
@@ -12,7 +10,7 @@ struct Person {
     boolean alive;
 }
 
-function testVarDeclarationWithAtLeaseOneNonDeclaredSymbol () (int, errors:TypeConversionError) {
+function testVarDeclarationWithAtLeaseOneNonDeclaredSymbol () (int, TypeConversionError) {
     int a;
     float f = 10.0;
     var a, err = <int>f;
@@ -67,7 +65,7 @@ function testBooleanToVarAssignment() (boolean) {
     return isHappy;
 }
 
-function testIncompatibleJsonToStructWithErrors() (Person, errors:TypeConversionError) {
+function testIncompatibleJsonToStructWithErrors() (Person, TypeConversionError) {
     json j = { name:"Child",
                age:25,
                parent:{
@@ -92,7 +90,7 @@ struct PersonA {
     int age;
 }
 
-function testJsonToStructWithErrors() (PersonA, errors:TypeConversionError) {
+function testJsonToStructWithErrors() (PersonA, TypeConversionError) {
     json j = {name:"supun", age:"25"};
 
     var person, err = <PersonA> j;
@@ -109,7 +107,7 @@ struct B {
     string x;
 }
 
-function testCompatibleStructForceCasting()(A, errors:TypeCastError) {
+function testCompatibleStructForceCasting()(A, TypeCastError) {
     A a = {x: "x-valueof-a", y:4};
     B b = {x: "x-valueof-b"};
 
@@ -121,7 +119,7 @@ function testCompatibleStructForceCasting()(A, errors:TypeCastError) {
     return c, err;
 }
 
-function testInCompatibleStructForceCasting()(A, errors:TypeCastError) {
+function testInCompatibleStructForceCasting()(A, TypeCastError) {
     B b = {x: "x-valueof-b"};
 
     var a, err = (A) b;
@@ -129,7 +127,7 @@ function testInCompatibleStructForceCasting()(A, errors:TypeCastError) {
     return a, err;
 }
 
-function testAnyToStringWithErrors()(string, errors:TypeCastError) {
+function testAnyToStringWithErrors()(string, TypeCastError) {
     any a = 5;
 
     var s, err = (string) a;
@@ -137,7 +135,7 @@ function testAnyToStringWithErrors()(string, errors:TypeCastError) {
     return s, err;
 }
 
-function testAnyNullToStringWithErrors()(string, errors:TypeCastError) {
+function testAnyNullToStringWithErrors()(string, TypeCastError) {
     any a = null;
 
     var s, err = (string) a;
@@ -145,7 +143,7 @@ function testAnyNullToStringWithErrors()(string, errors:TypeCastError) {
     return s, err;
 }
 
-function testAnyToBooleanWithErrors()(boolean, errors:TypeCastError) {
+function testAnyToBooleanWithErrors()(boolean, TypeCastError) {
     any a = 5;
 
     var b, err = (boolean) a;
@@ -153,7 +151,7 @@ function testAnyToBooleanWithErrors()(boolean, errors:TypeCastError) {
     return b, err;
 }
 
-function testAnyNullToBooleanWithErrors()(boolean, errors:TypeCastError) {
+function testAnyNullToBooleanWithErrors()(boolean, TypeCastError) {
     any a = null;
 
     var b, err = (boolean) a;
@@ -161,7 +159,7 @@ function testAnyNullToBooleanWithErrors()(boolean, errors:TypeCastError) {
     return b, err;
 }
 
-function testAnyToIntWithErrors()(int, errors:TypeCastError) {
+function testAnyToIntWithErrors()(int, TypeCastError) {
     any a = "foo";
 
     var b, err = (int) a;
@@ -169,7 +167,7 @@ function testAnyToIntWithErrors()(int, errors:TypeCastError) {
     return b, err;
 }
 
-function testAnyNullToIntWithErrors()(int, errors:TypeCastError) {
+function testAnyNullToIntWithErrors()(int, TypeCastError) {
     any a = null;
 
     var b, err = (int) a;
@@ -177,7 +175,7 @@ function testAnyNullToIntWithErrors()(int, errors:TypeCastError) {
     return b, err;
 }
 
-function testAnyToFloatWithErrors()(float, errors:TypeCastError) {
+function testAnyToFloatWithErrors()(float, TypeCastError) {
     any a = "foo";
 
     var b, err = (float) a;
@@ -185,7 +183,7 @@ function testAnyToFloatWithErrors()(float, errors:TypeCastError) {
     return b, err;
 }
 
-function testAnyNullToFloatWithErrors()(float, errors:TypeCastError) {
+function testAnyNullToFloatWithErrors()(float, TypeCastError) {
     any a = null;
 
     var b, err = (float) a;
@@ -193,7 +191,7 @@ function testAnyNullToFloatWithErrors()(float, errors:TypeCastError) {
     return b, err;
 }
 
-function testAnyToMapWithErrors()(map, errors:TypeCastError) {
+function testAnyToMapWithErrors()(map, TypeCastError) {
     any a = "foo";
 
     var b, err = (map) a;

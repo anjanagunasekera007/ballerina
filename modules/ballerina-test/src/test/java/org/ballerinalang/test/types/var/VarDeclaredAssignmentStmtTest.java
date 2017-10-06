@@ -45,7 +45,7 @@ public class VarDeclaredAssignmentStmtTest {
         result = BTestUtils.compile("test-src/types/var/var-type-assign-stmt.bal");
     }
 
-    @Test(enabled = false, description = "Test int to var assignment.")
+    @Test(description = "Test int to var assignment.")
     public void testIntToVarAssignment() {
         BValue[] returns = BTestUtils.invoke(result, "testIntToVarAssignment",
                 new BValue[]{});
