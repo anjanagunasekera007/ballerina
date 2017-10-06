@@ -160,6 +160,15 @@ public class BTestUtils {
      */
     public static BValue[] invoke(CompileResult compileResult, String functionName, BValue[] args) {
         if (compileResult.getErrorCount() > 0) {
+            System.out.println("  - - - - - - - - - - - - - - - - - - - - j j j j - - - - - - - - - - - - - - - - ");
+            for (int i=0;i < compileResult.getDiagnostics().length;i++)
+            {
+
+                System.out.println(compileResult.getDiagnostics()[i].getMessage());
+                System.out.println(compileResult.getDiagnostics()[i].getPosition());
+                System.out.println();
+
+            }
             throw new IllegalStateException("compilation contains errors.");
         }
         ProgramFile programFile = compileResult.getProgFile();
