@@ -498,7 +498,6 @@ public class CodeGenerator extends BLangNodeVisitor {
             if (expr.isMultiReturnExpr()) {
                 MultiReturnExpr invExpr = (MultiReturnExpr) expr;
                 for (int j = 0; j < invExpr.getRegIndexes().length; j++) {
-                    System.out.println(" - - - - - - - - - -  " + invExpr.getRegIndexes().length + " + > "+ j);
                     emit(this.typeTagToInstr(invExpr.getTypes().get(j).tag), i, invExpr.getRegIndexes()[j]);
                     i++;
                 }
