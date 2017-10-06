@@ -16,11 +16,13 @@
  */
 package org.ballerinalang.test.utils;
 
+import org.ballerinalang.bre.Context;
 import org.ballerinalang.compiler.CompilerPhase;
 import org.ballerinalang.launcher.LauncherUtils;
 import org.ballerinalang.model.types.BStructType;
 import org.ballerinalang.model.values.BStruct;
 import org.ballerinalang.model.values.BValue;
+import org.ballerinalang.util.codegen.FunctionInfo;
 import org.ballerinalang.util.codegen.PackageInfo;
 import org.ballerinalang.util.codegen.ProgramFile;
 import org.ballerinalang.util.codegen.StructInfo;
@@ -112,7 +114,6 @@ public class BTestUtils {
         Compiler compiler = Compiler.getInstance(context);
         compiler.compile(packageName);
         org.wso2.ballerinalang.programfile.ProgramFile programFile = compiler.getCompiledProgram();
-
         if (programFile != null) {
             comResult.setProgFile(LauncherUtils.getExecutableProgram(programFile));
         }
@@ -185,6 +186,17 @@ public class BTestUtils {
     public static BValue[] invoke(CompileResult compileResult, String functionName) {
         BValue[] args = {};
         return invoke(compileResult, functionName, args);
+    }
+
+    /**
+     * Invoke a ballerina function given context.
+     *
+     * @param compileResult CompileResult instance.
+     * @param initFuncInfo Function to invoke.
+     * @param context invocation context.
+     */
+    public static void invoke(CompileResult compileResult, FunctionInfo initFuncInfo, Context context) {
+        BLangFunctions.invokeFunction(compileResult.getProgFile(), initFuncInfo, context);
     }
 
     /**
