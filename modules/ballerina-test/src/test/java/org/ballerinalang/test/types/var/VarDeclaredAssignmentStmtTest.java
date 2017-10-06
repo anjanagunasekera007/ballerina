@@ -52,7 +52,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BInteger) returns[0]).intValue(), 81);
     }
 
-    @Test(enabled = false, description = "Test multiple int to var assignment.")
+    @Test(description = "Test multiple int to var assignment.")
     public void testMultipleIntToVarAssignment() {
         BValue[] returns = BTestUtils.invoke(result, "testMultipleIntToVarAssignment",
                 new BValue[]{});
@@ -69,7 +69,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BInteger) returns[3]).intValue(), 400);
     }
 
-    @Test(enabled = false, description = "Test multiple int var assignment with underscore.")
+    @Test(description = "Test multiple int var assignment with underscore.")
     public void testMultipleIntToVarAssignmentWithUnderscore() {
         BValue[] returns = BTestUtils.invoke(result, "testMultipleIntToVarAssignmentWithUnderscore",
                 new BValue[]{});
@@ -82,7 +82,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BInteger) returns[1]).intValue(), 200);
     }
 
-    @Test(enabled = false, description = "Test multiple int var assignment with underscore.")
+    @Test(description = "Test multiple int var assignment with underscore.")
     public void testMultipleIntToVarAssignmentWithUnderscoreCaseOne() {
         BValue[] returns = BTestUtils.invoke(result,
                 "testMultipleIntToVarAssignmentWithUnderscoreOrderCaseOne",
@@ -96,7 +96,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BInteger) returns[1]).intValue(), 300);
     }
 
-    @Test(enabled = false, description = "Test multiple int var assignment with underscore.")
+    @Test(description = "Test multiple int var assignment with underscore.")
     public void testMultipleIntToVarAssignmentWithUnderscoreCaseTwo() {
         BValue[] returns = BTestUtils.invoke(result,
                 "testMultipleIntToVarAssignmentWithUnderscoreOrderCaseTwo",
@@ -134,7 +134,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BString) returns[3]).stringValue(), "name_4");
     }
 
-    @Test(enabled = false, description = "Test var with at least non declared ref in LHS expr.")
+    @Test(description = "Test var with at least non declared ref in LHS expr.")
     public void testVarDeclarationWithAtLeaseOneNonDeclaredSymbol() {
         BValue[] returns = BTestUtils.invoke(result, "testVarDeclarationWithAtLeaseOneNonDeclaredSymbol",
                 new BValue[]{});
