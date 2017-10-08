@@ -39,13 +39,14 @@ import org.testng.annotations.Test;
 public class VarDeclaredAssignmentStmtTest {
 
     private CompileResult result;
+    private CompileResult negativeResult;
 
     @BeforeClass
     public void setup() {
         result = BTestUtils.compile("test-src/types/var/var-type-assign-stmt.bal");
     }
 
-    @Test(enabled = false, description = "Test int to var assignment.")
+    @Test(description = "Test int to var assignment.")
     public void testIntToVarAssignment() {
         BValue[] returns = BTestUtils.invoke(result, "testIntToVarAssignment",
                 new BValue[]{});
@@ -69,7 +70,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BInteger) returns[3]).intValue(), 400);
     }
 
-    @Test(enabled = false, description = "Test multiple int var assignment with underscore.")
+    @Test(description = "Test multiple int var assignment with underscore.")
     public void testMultipleIntToVarAssignmentWithUnderscore() {
         BValue[] returns = BTestUtils.invoke(result, "testMultipleIntToVarAssignmentWithUnderscore",
                 new BValue[]{});
@@ -82,7 +83,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BInteger) returns[1]).intValue(), 200);
     }
 
-    @Test(enabled = false, description = "Test multiple int var assignment with underscore.")
+    @Test(description = "Test multiple int var assignment with underscore.")
     public void testMultipleIntToVarAssignmentWithUnderscoreCaseOne() {
         BValue[] returns = BTestUtils.invoke(result,
                 "testMultipleIntToVarAssignmentWithUnderscoreOrderCaseOne",
@@ -96,7 +97,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BInteger) returns[1]).intValue(), 300);
     }
 
-    @Test(enabled = false, description = "Test multiple int var assignment with underscore.")
+    @Test(description = "Test multiple int var assignment with underscore.")
     public void testMultipleIntToVarAssignmentWithUnderscoreCaseTwo() {
         BValue[] returns = BTestUtils.invoke(result,
                 "testMultipleIntToVarAssignmentWithUnderscoreOrderCaseTwo",
@@ -110,14 +111,14 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BInteger) returns[1]).intValue(), 400);
     }
 
-    @Test(enabled = false, description = "Test string to var assignment.")
+    @Test(description = "Test string to var assignment.")
     public void testStringToVarAssignment() {
         BValue[] returns = BTestUtils.invoke(result, "testStringToVarAssignment",
                 new BValue[]{});
         Assert.assertEquals(((BString) returns[0]).stringValue(), "name");
     }
 
-    @Test(enabled = false, description = "Test multiple string to var assignment.")
+    @Test(description = "Test multiple string to var assignment.")
     public void testMultipleStringToVarAssignment() {
         BValue[] returns = BTestUtils.invoke(result, "testMultipleStringToVarAssignment",
                 new BValue[]{});
@@ -134,7 +135,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BString) returns[3]).stringValue(), "name_4");
     }
 
-    @Test(enabled = false, description = "Test var with at least non declared ref in LHS expr.")
+    @Test(description = "Test var with at least non declared ref in LHS expr.")
     public void testVarDeclarationWithAtLeaseOneNonDeclaredSymbol() {
         BValue[] returns = BTestUtils.invoke(result, "testVarDeclarationWithAtLeaseOneNonDeclaredSymbol",
                 new BValue[]{});
@@ -142,19 +143,21 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertNull(returns[1]);
     }
 
-    @Test(enabled = false, description = "Test boolean to var assignment.")
+    @Test(description = "Test boolean to var assignment.")
     public void testBooleanToVarAssignment() {
         BValue[] returns = BTestUtils.invoke(result, "testBooleanToVarAssignment",
                 new BValue[]{});
         Assert.assertEquals(((BBoolean) returns[0]).booleanValue(), true);
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test var in variable def.", expectedExceptions = {ParserException.class})
     public void testVarTypeInVariableDefStatement() {
         //var type is not not allowed in variable def statements
-        BTestUtils.compile("test-src/types/var/var-type-variable-def-negative.bal");
-    }
+        negativeResult = BTestUtils.compile("test-src/types/var/var-type-variable-def-negative.bal");
 
+            }
+    //ask to change
     @Test(enabled = false,
             description = "Test var in global variable def.", expectedExceptions = {ParserException.class})
     public void testVarTypeInGlobalVariableDefStatement() {
@@ -162,6 +165,7 @@ public class VarDeclaredAssignmentStmtTest {
         BTestUtils.compile("test-src/types/var/global-variable-def-var-type-negative.bal");
     }
 
+    //ask to change
     @Test(enabled = false,
             description = "Test var in service level var def.", expectedExceptions = {ParserException.class})
     public void testVarTypeInServiceLevelVariableDefStatement() {
@@ -169,6 +173,7 @@ public class VarDeclaredAssignmentStmtTest {
         BTestUtils.compile("test-src/types/var/service-level-variable-def-with-var-type-negative.bal");
     }
 
+    //ask to change
     @Test(enabled = false,
             expectedExceptions = {SemanticException.class }, expectedExceptionsMessageRegExp = ".*invalid usage of var")
     public void testVarDeclarationWithStructFieldAssignmentLHSExpr() {
@@ -176,6 +181,7 @@ public class VarDeclaredAssignmentStmtTest {
         BTestUtils.compile("test-src/types/var/var-invalid-usage-struct-field-access.bal");
     }
 
+    //ask to change
     @Test(enabled = false, expectedExceptions = {SemanticException.class },
             expectedExceptionsMessageRegExp = ".*'age' is repeated on the left side of assignment")
     public void testVarDeclarationWithDuplicateVariableRefs() {
@@ -183,6 +189,7 @@ public class VarDeclaredAssignmentStmtTest {
         BTestUtils.compile("test-src/types/var/var-duplicate-variable-ref-lhs-expr.bal");
     }
 
+    //change
     @Test(enabled = false, expectedExceptions = {SemanticException.class },
             expectedExceptionsMessageRegExp = ".*invalid usage of var")
     public void testVarDeclarationWithArrayInit() {
@@ -190,6 +197,7 @@ public class VarDeclaredAssignmentStmtTest {
         BTestUtils.compile("test-src/types/var/var-declaration-with-array-init.bal");
     }
 
+    //change
     @Test(enabled = false, expectedExceptions = {SemanticException.class },
           expectedExceptionsMessageRegExp = "var-declared-symbols.bal:7: no new variables on left side")
     public void testVarDeclarationWithAllDeclaredSymbols() {
@@ -197,6 +205,7 @@ public class VarDeclaredAssignmentStmtTest {
         BTestUtils.compile("test-src/types/var/var-declared-symbols.bal");
     }
 
+    //change
     @Test(enabled = false, expectedExceptions = {SemanticException.class },
             expectedExceptionsMessageRegExp = "var-all-ignored-symbols.bal:3: no new variables on left side")
     public void testVarDeclarationWithAllIgnoredSymbols() {
@@ -204,6 +213,7 @@ public class VarDeclaredAssignmentStmtTest {
         BTestUtils.compile("test-src/types/var/var-all-ignored-symbols.bal");
     }
 
+    //change and put to new file since this is negative ?
     @Test(enabled = false, description = "Test incompatible json to struct with errors.")
     public void testIncompatibleJsonToStructWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testIncompatibleJsonToStructWithErrors",
@@ -216,6 +226,7 @@ public class VarDeclaredAssignmentStmtTest {
                 " 'parent': incompatible types: expected 'json-object', found 'string'");
     }
 
+    //change and put to new file since this is negative ?
     @Test(enabled = false, description = "Test incompatible json to struct with errors.")
     public void testJsonToStructWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testJsonToStructWithErrors",
@@ -228,6 +239,7 @@ public class VarDeclaredAssignmentStmtTest {
                 "incompatible types: expected 'int', found 'string' in json");
     }
 
+    //nullpointer
     @Test(enabled = false, description = "Test compatible struct with force casting.")
     public void testCompatibleStructForceCasting() {
         BValue[] returns = BTestUtils.invoke(result, "testCompatibleStructForceCasting", new BValue[]{});
@@ -242,6 +254,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertNull(returns[1]);
     }
 
+    //nullpointer
     @Test(enabled = false, description = "Test incompatible struct with force casting.")
     public void testInCompatibleStructForceCasting() {
         BValue[] returns = BTestUtils.invoke(result, "testInCompatibleStructForceCasting", new BValue[]{});
@@ -262,7 +275,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(targetType, "A");
     }
 
-    @Test(enabled = false, description = "Test any to string with errors.")
+    @Test(description = "Test any to string with errors.")
     public void testAnyToStringWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToStringWithErrors", new BValue[]{});
 
@@ -276,7 +289,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(errorMsg, "'int' cannot be cast to 'string'");
     }
 
-    @Test(enabled = false, description = "Test any null to string with errors.")
+    @Test(description = "Test any null to string with errors.")
     public void testAnyNullToStringWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToStringWithErrors", new BValue[]{});
 
@@ -290,7 +303,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(errorMsg, "'null' cannot be cast to 'string'");
     }
 
-    @Test(enabled = false, description = "Test any to boolean with errors.")
+    @Test(description = "Test any to boolean with errors.")
     public void testAnyToBooleanWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToBooleanWithErrors", new BValue[]{});
 
@@ -304,7 +317,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(errorMsg, "'int' cannot be cast to 'boolean'");
     }
 
-    @Test(enabled = false, description = "Test any null to boolean with errors.")
+    @Test(description = "Test any null to boolean with errors.")
     public void testAnyNullToBooleanWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToBooleanWithErrors", new BValue[]{});
 
@@ -318,7 +331,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(errorMsg, "'null' cannot be cast to 'boolean'");
     }
 
-    @Test(enabled = false, description = "Test any to int with errors.")
+    @Test(description = "Test any to int with errors.")
     public void testAnyToIntWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToIntWithErrors", new BValue[]{});
 
@@ -332,7 +345,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(errorMsg, "'string' cannot be cast to 'int'");
     }
 
-    @Test(enabled = false, description = "Test any null to int with errors.")
+    @Test(description = "Test any null to int with errors.")
     public void testAnyNullToIntWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToIntWithErrors", new BValue[]{});
 
@@ -346,7 +359,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(errorMsg, "'null' cannot be cast to 'int'");
     }
 
-    @Test(enabled = false, description = "Test any to float with errors.")
+    @Test(description = "Test any to float with errors.")
     public void testAnyToFloatWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToFloatWithErrors", new BValue[]{});
 
@@ -360,7 +373,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(errorMsg, "'string' cannot be cast to 'float'");
     }
 
-    @Test(enabled = false, description = "Test any null to float with errors.")
+    @Test(description = "Test any null to float with errors.")
     public void testAnyNullToFloatWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToFloatWithErrors", new BValue[]{});
 
@@ -374,7 +387,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(errorMsg, "'null' cannot be cast to 'float'");
     }
 
-    @Test(enabled = false, description = "Test any to map with errors.")
+    @Test(description = "Test any to map with errors.")
     public void testAnyToMapWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyToMapWithErrors", new BValue[]{});
 
