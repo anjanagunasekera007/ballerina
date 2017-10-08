@@ -46,6 +46,7 @@ public class TypeCastExprTest {
     private static final double DELTA = 0.01;
     private ProgramFile bLangProgram;
     private CompileResult result;
+    private CompileResult negativeResult;
 
 
     @BeforeClass
@@ -296,6 +297,7 @@ public class TypeCastExprTest {
 //        Assert.assertEquals(addressNode.get("city").textValue(), "CA");
 //    }
 
+    //test code in nullpointer file
     @Test(enabled = false)
     public void testStructToStruct() {
         BValue[] returns = BTestUtils.invoke(result, "testStructToStruct", new BValue[]{});
@@ -319,12 +321,10 @@ public class TypeCastExprTest {
         Assert.assertEquals(marksArray.get(1), 81);
     }
 
-    @Test(enabled = false, description = "Test casting a struct to an incompatible struct",
-            expectedExceptions = {SemanticException.class},
-            expectedExceptionsMessageRegExp = "incompatible-struct-cast.bal:24: incompatible types: 'Student' " +
-                    "cannot be assigned to 'Person'")
+    @Test(description = "Test casting a struct to an incompatible struct")
     public void testIncompatibleStructToStructCast() {
-        BTestUtils.compile("test-src/expressions/typecast/incompatible-struct-cast.bal");
+        negativeResult = BTestUtils.compile("test-src/expressions/typecast/incompatible-struct-cast.bal");
+        BTestUtils.validateError(negativeResult, 0, "incompatible types: expected 'Person', found 'Student'", 24, 16);
     }
 
     @Test(enabled = false, description = "Test casting a JSON integer to a string")
