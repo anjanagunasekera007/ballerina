@@ -116,14 +116,14 @@ public class TypeCastExprTest {
         Assert.assertEquals(returns[0].stringValue(), expected);
     }
 
-    @Test(enabled = false)
-    public void testStringToXML() {
-        BValue[] args = {new BString("<name>chanaka</name>")};
-        BValue[] returns = BTestUtils.invoke(result, "stringtoxml", args);
-        Assert.assertTrue(returns[0] instanceof BXML);
-        final String expected = "<name>chanaka</name>";
-        Assert.assertEquals(returns[0].stringValue(), expected);
-    }
+//    @Test()
+//    public void testStringToXML() {
+//        BValue[] args = {new BString("<name>chanaka</name>")};
+//        BValue[] returns = BTestUtils.invoke(result, "stringtoxml", args);
+//        Assert.assertTrue(returns[0] instanceof BXML);
+//        final String expected = "<name>chanaka</name>";
+//        Assert.assertEquals(returns[0].stringValue(), expected);
+//    }
 
     @Test
     public void testIntToString() {
@@ -162,8 +162,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(returns[0].stringValue(), expected);
     }
 
-    //precommented
-    //    @Test
+//    @Test
 //    public void testXMLToString() {
 //        BValue[] args = {new BXML("<name>chanaka</name>")};
 //        BValue[] returns = Functions.invoke(bLangProgram, "xmltostring", args);
@@ -172,7 +171,6 @@ public class TypeCastExprTest {
 //        Assert.assertEquals(returns[0].stringValue(), expected);
 //    }
 //
-    //------
 
     @Test
     public void testJSONToString() {
@@ -224,79 +222,79 @@ public class TypeCastExprTest {
     }
 
 //no test case
-    @Test(enabled = false)
-    public void testSimpleJsonToMap() {
-        BValue[] returns = BTestUtils.invoke(result, "testSimpleJsonToMap", new BValue[]{});
-        Assert.assertTrue(returns[0] instanceof BMap<?, ?>);
-        BMap map = (BMap) returns[0];
+//    @Test(enabled = false)
+//    public void testSimpleJsonToMap() {
+//        BValue[] returns = BTestUtils.invoke(result, "testSimpleJsonToMap", new BValue[]{});
+//        Assert.assertTrue(returns[0] instanceof BMap<?, ?>);
+//        BMap map = (BMap) returns[0];
+//
+//        BValue value1 = map.get(new BString("fname"));
+//        Assert.assertTrue(value1 instanceof BString);
+//        Assert.assertEquals(value1.stringValue(), "Supun");
+//
+//        BValue value2 = map.get(new BString("lname"));
+//        Assert.assertTrue(value2 instanceof BString);
+//        Assert.assertEquals(value2.stringValue(), "Setunga");
+//    }
 
-        BValue value1 = map.get(new BString("fname"));
-        Assert.assertTrue(value1 instanceof BString);
-        Assert.assertEquals(value1.stringValue(), "Supun");
+//    @Test(enabled = false)
+//    public void testComplexJsonToMap() {
+//        BValue[] returns = BTestUtils.invoke(result, "testComplexJsonToMap");
+//        Assert.assertTrue(returns[0] instanceof BMap<?, ?>);
+//        BMap map = (BMap) returns[0];
+//
+//        BValue value1 = map.get(new BString("name"));
+//        Assert.assertTrue(value1 instanceof BString);
+//        Assert.assertEquals(value1.stringValue(), "Supun");
+//
+//        BValue value2 = map.get(new BString("age"));
+//        Assert.assertTrue(value2 instanceof BInteger);
+//        Assert.assertEquals(((BInteger) value2).intValue(), 25);
+//
+//        BValue value3 = map.get(new BString("gpa"));
+//        Assert.assertTrue(value3 instanceof BFloat);
+//        Assert.assertEquals(((BFloat) value3).floatValue(), 2.81);
+//
+//        BValue value4 = map.get(new BString("status"));
+//        Assert.assertTrue(value4 instanceof BBoolean);
+//        Assert.assertEquals(((BBoolean) value4).booleanValue(), true);
+//
+//        BValue value5 = map.get(new BString("info"));
+//        Assert.assertEquals(value5, null);
+//
+//        BValue value6 = map.get(new BString("address"));
+//        Assert.assertTrue(value6 instanceof BJSON);
+//        Assert.assertEquals(value6.stringValue(), "{\"city\":\"Colombo\",\"country\":\"SriLanka\"}");
+//
+//        BValue value7 = map.get(new BString("marks"));
+//        Assert.assertTrue(value7 instanceof BJSON);
+//        Assert.assertEquals(value7.stringValue(), "[1,5,7]");
+//    }
 
-        BValue value2 = map.get(new BString("lname"));
-        Assert.assertTrue(value2 instanceof BString);
-        Assert.assertEquals(value2.stringValue(), "Setunga");
-    }
+//    @Test(enabled = false)
+//    public void testSimpleMapToJson() {
+//        BValue[] returns = BTestUtils.invoke(result, "testSimpleMapToJson");
+//        Assert.assertTrue(returns[0] instanceof BJSON);
+//        JsonNode jsonNode = ((BJSON) returns[0]).value();
+//        Assert.assertEquals(jsonNode.get("fname").textValue(), "Supun");
+//        Assert.assertEquals(jsonNode.get("lname").textValue(), "Setunga");
+//    }
 
-    @Test(enabled = false)
-    public void testComplexJsonToMap() {
-        BValue[] returns = BTestUtils.invoke(result, "testComplexJsonToMap");
-        Assert.assertTrue(returns[0] instanceof BMap<?, ?>);
-        BMap map = (BMap) returns[0];
-
-        BValue value1 = map.get(new BString("name"));
-        Assert.assertTrue(value1 instanceof BString);
-        Assert.assertEquals(value1.stringValue(), "Supun");
-
-        BValue value2 = map.get(new BString("age"));
-        Assert.assertTrue(value2 instanceof BInteger);
-        Assert.assertEquals(((BInteger) value2).intValue(), 25);
-
-        BValue value3 = map.get(new BString("gpa"));
-        Assert.assertTrue(value3 instanceof BFloat);
-        Assert.assertEquals(((BFloat) value3).floatValue(), 2.81);
-
-        BValue value4 = map.get(new BString("status"));
-        Assert.assertTrue(value4 instanceof BBoolean);
-        Assert.assertEquals(((BBoolean) value4).booleanValue(), true);
-
-        BValue value5 = map.get(new BString("info"));
-        Assert.assertEquals(value5, null);
-
-        BValue value6 = map.get(new BString("address"));
-        Assert.assertTrue(value6 instanceof BJSON);
-        Assert.assertEquals(value6.stringValue(), "{\"city\":\"Colombo\",\"country\":\"SriLanka\"}");
-
-        BValue value7 = map.get(new BString("marks"));
-        Assert.assertTrue(value7 instanceof BJSON);
-        Assert.assertEquals(value7.stringValue(), "[1,5,7]");
-    }
-
-    @Test(enabled = false)
-    public void testSimpleMapToJson() {
-        BValue[] returns = BTestUtils.invoke(result, "testSimpleMapToJson");
-        Assert.assertTrue(returns[0] instanceof BJSON);
-        JsonNode jsonNode = ((BJSON) returns[0]).value();
-        Assert.assertEquals(jsonNode.get("fname").textValue(), "Supun");
-        Assert.assertEquals(jsonNode.get("lname").textValue(), "Setunga");
-    }
-
-    @Test(enabled = false)
-    public void testComplexMapToJson() {
-        BValue[] returns = BTestUtils.invoke(result, "testComplexMapToJson");
-        Assert.assertTrue(returns[0] instanceof BJSON);
-        JsonNode jsonNode = ((BJSON) returns[0]).value();
-        Assert.assertEquals(jsonNode.get("name").textValue(), "Supun");
-        Assert.assertEquals(jsonNode.get("age").intValue(), 25);
-        Assert.assertEquals(jsonNode.get("status").booleanValue(), true);
-        Assert.assertTrue(jsonNode.get("info").isNull());
-        Assert.assertEquals(jsonNode.get("intArray").toString(), "[7,8,9]");
-
-        JsonNode addressNode = jsonNode.get("address");
-        Assert.assertEquals(addressNode.get("country").textValue(), "USA");
-        Assert.assertEquals(addressNode.get("city").textValue(), "CA");
-    }
+//    @Test(enabled = false)
+//    public void testComplexMapToJson() {
+//        BValue[] returns = BTestUtils.invoke(result, "testComplexMapToJson");
+//        Assert.assertTrue(returns[0] instanceof BJSON);
+//        JsonNode jsonNode = ((BJSON) returns[0]).value();
+//        Assert.assertEquals(jsonNode.get("name").textValue(), "Supun");
+//        Assert.assertEquals(jsonNode.get("age").intValue(), 25);
+//        Assert.assertEquals(jsonNode.get("status").booleanValue(), true);
+//        Assert.assertTrue(jsonNode.get("info").isNull());
+//        Assert.assertEquals(jsonNode.get("intArray").toString(), "[7,8,9]");
+//
+//        JsonNode addressNode = jsonNode.get("address");
+//        Assert.assertEquals(addressNode.get("country").textValue(), "USA");
+//        Assert.assertEquals(addressNode.get("city").textValue(), "CA");
+//    }
 
     @Test(enabled = false)
     public void testStructToStruct() {
