@@ -324,6 +324,7 @@ public class TypeCastExprTest {
         BTestUtils.validateError(negativeResult, 0, "incompatible types: expected 'Person', found 'Student'", 24, 16);
     }
 
+    //java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
     @Test(enabled = false, description = "Test casting a JSON integer to a string")
     public void testJsonIntToString() {
         BValue[] returns = BTestUtils.invoke(result, "testJsonIntToString", new BValue[]{});
@@ -331,6 +332,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(returns[0].stringValue(), "5");
     }
 
+    //ask to change or not to change
     @Test(enabled = false, description = "Test casting an incomatible JSON to integer",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeConversionError, message: " +
@@ -339,6 +341,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testIncompatibleJsonToInt", new BValue[]{});
     }
 
+    //ask to change or not to change
     @Test(enabled = false, description = "Test casting an incomatible JSON to float",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeConversionError, message: " +
@@ -347,6 +350,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testIncompatibleJsonToFloat", new BValue[]{});
     }
 
+    //ask to change or not to change
     @Test(enabled = false, description = "Test casting an incomatible JSON to boolean",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeConversionError, message: " +
@@ -364,6 +368,7 @@ public class TypeCastExprTest {
 //        BTestUtils.invoke(result, "testBooleanInJsonToInt", new BValue[]{});
 //    }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting an integer in JSON to float",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeConversionError, message: 'int' " +
@@ -372,6 +377,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testIntInJsonToFloat", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a null JSON to string",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:NullReferenceError.*")
@@ -379,6 +385,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testNullJsonToString" , new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a null JSON to int",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:NullReferenceError.*")
@@ -386,6 +393,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testNullJsonToInt", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a null JSON to float",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:NullReferenceError.*")
@@ -393,6 +401,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testNullJsonToFloat", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a null JSON to boolean",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:NullReferenceError.*")
@@ -400,12 +409,14 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testNullJsonToBoolean", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a null Struct to Struct")
     public void testNullStructToStruct() {
         BValue[] returns = BTestUtils.invoke(result, "testNullStructToStruct", new BValue[]{});
         Assert.assertEquals(returns[0], null);
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting an int as any type to json",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeCastError, message: " +
@@ -414,6 +425,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testAnyIntToJson", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a string as any type to json",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeCastError, message: " +
@@ -422,6 +434,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testAnyStringToJson", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a boolean as any type to json",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeCastError, " +
@@ -430,6 +443,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testAnyBooleanToJson", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a float as any type to json",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeCastError, message: " +
@@ -438,6 +452,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testAnyFloatToJson", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a map as any type to json",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeCastError, message: 'map' " +
@@ -446,6 +461,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testAnyMapToJson", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a struct as any type to json",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeCastError, message: " +
@@ -454,6 +470,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testAnyStructToJson", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a json as any type to json")
     public void testAnyJsonToJson() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyJsonToJson" , new BValue[]{});
@@ -461,12 +478,14 @@ public class TypeCastExprTest {
         Assert.assertEquals(((BJSON) returns[0]).value().toString(), "{\"home\":\"SriLanka\"}");
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a null as any type to json")
     public void testAnyNullToJson() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToJson", new BValue[]{});
         Assert.assertEquals(returns[0], null);
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting an array as any type to json",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeCastError, message: 'any\\[\\]' " +
@@ -475,6 +494,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testAnyArrayToJson", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a xml as any type to json",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = "error: ballerina.lang.errors:TypeCastError, message: 'message' " +
@@ -483,6 +503,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testAnyMessageToJson", new BValue[]{});
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a struct to map",
             expectedExceptions = {SemanticException.class},
             expectedExceptionsMessageRegExp = "struct-to-map.bal:22: incompatible types: 'Person' cannot be cast " +
@@ -491,6 +512,7 @@ public class TypeCastExprTest {
         BTestUtils.compile("test-src/expressions/cast/struct-to-map.bal");
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a map to struct",
             expectedExceptions = {SemanticException.class},
             expectedExceptionsMessageRegExp = "map-to-struct.bal:36: incompatible types: 'map' cannot be cast to " +
@@ -499,6 +521,7 @@ public class TypeCastExprTest {
         BTestUtils.compile("test-src/expressions/cast/map-to-struct.bal");
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a json to map",
             expectedExceptions = {SemanticException.class},
             expectedExceptionsMessageRegExp = "json-to-map.bal:9: incompatible types: 'json' cannot be cast to 'map'")
@@ -506,6 +529,7 @@ public class TypeCastExprTest {
         BTestUtils.compile("test-src/expressions/cast/json-to-map.bal");
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a json to struct",
             expectedExceptions = {SemanticException.class},
             expectedExceptionsMessageRegExp = "json-to-struct.bal:34: incompatible types: 'json' cannot be cast to" +
@@ -514,6 +538,7 @@ public class TypeCastExprTest {
         BTestUtils.compile("test-src/expressions/cast/json-to-struct.bal");
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a map to json",
             expectedExceptions = {SemanticException.class},
             expectedExceptionsMessageRegExp = "map-to-json-error.bal:7: incompatible types: 'map' cannot " +
@@ -522,6 +547,7 @@ public class TypeCastExprTest {
         BTestUtils.compile("test-src/expressions/cast/map-to-json-error.bal");
     }
 
+    //nullpointer
     @Test(enabled = false, description = "Test casting struct stored as any to struct")
     public void testStructAsAnyToStruct() {
         BValue[] returns = BTestUtils.invoke(result, "testStructAsAnyToStruct", new BValue[]{});
@@ -551,6 +577,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(score, 0.0);
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting any to struct",
             expectedExceptions = {BLangRuntimeException.class},
             expectedExceptionsMessageRegExp = ".*'map' cannot be cast to 'Person'.*")
@@ -558,6 +585,7 @@ public class TypeCastExprTest {
         BTestUtils.invoke(result, "testAnyToStruct" , new BValue[]{});
     }
 
+    //nullpointer
     @Test(enabled = false, description = "Test casting a null stored as any to struct")
     public void testAnyNullToStruct() {
         BValue[] returns = BTestUtils.invoke(result, "testAnyNullToStruct", new BValue[]{});
@@ -576,6 +604,7 @@ public class TypeCastExprTest {
         Assert.assertNull(returns[0]);
     }
 
+    //nullpointer
     @Test(enabled = false, description = "Test explicit casting struct to any")
     public void testStructToAnyExplicit() {
         BValue[] returns = BTestUtils.invoke(result, "testStructToAnyExplicit", new BValue[]{});
@@ -601,6 +630,8 @@ public class TypeCastExprTest {
         Assert.assertEquals(student.getFloatField(0), 0.0);
     }
 
+
+    //nullpointer
     @Test(enabled = false, description = "Test explicit casting struct to any")
     public void testMapToAnyExplicit() {
         BValue[] returns = BTestUtils.invoke(result, "testMapToAnyExplicit", new BValue[]{});
@@ -609,12 +640,14 @@ public class TypeCastExprTest {
         Assert.assertEquals(map.get("name").stringValue(), "supun");
     }
 
+    //ask to change
     @Test(enabled = false, description = "Test casting a struct to another struct in a different package")
     public void testCastToStructInDifferentPkg() {
-        result = BTestUtils.compile("lang/expressions/btype/cast/foo");
+        result = BTestUtils.compile("test-src/expressions/typecast/foo/type-casting.bal");
         BValue[] returns = BTestUtils.invoke(result, "testCastToStructInDifferentPkg", new BValue[]{});
     }
 
+    //nullpointer
     @Test(enabled = false)
     public void testCompatibleStructForceCasting() {
         BValue[] returns = BTestUtils.invoke(result, "testCompatibleStructForceCasting", new BValue[]{});
@@ -629,6 +662,7 @@ public class TypeCastExprTest {
         Assert.assertNull(returns[1]);
     }
 
+    //nullpointer
     @Test(enabled = false)
     public void testInCompatibleStructForceCasting() {
         BValue[] returns = BTestUtils.invoke(result, "testInCompatibleStructForceCasting", new BValue[]{});
@@ -649,20 +683,23 @@ public class TypeCastExprTest {
         Assert.assertEquals(targetType, "A");
     }
 
+
+    //nullpointer DIFF
     @Test(enabled = false, description = "Test returning a mismatching error when casting",
             expectedExceptions = {SemanticException.class},
             expectedExceptionsMessageRegExp = "mismatch-error-in-multi-return-casting.bal:18: incompatible types: " +
                     "expected 'ballerina.lang.errors:TypeCastError', found 'Error'")
     public void testMistmatchErrorInMultiReturnCasting() {
-        BTestUtils.compile("test-src/expressions/cast/mismatch-error-in-multi-return-casting.bal");
+        negativeResult = BTestUtils.compile("test-src/expressions/typecast/mismatch-error-in-multi-return-casting.bal");
     }
 
+    //nullpointer
     @Test(enabled = false, description = "Test casting with too many returns",
             expectedExceptions = {SemanticException.class},
             expectedExceptionsMessageRegExp = "casting-with-too-many-returns.bal:17: assignment count mismatch: " +
                     "3 != 2")
     public void testCastingWithTooManyReturns() {
-        BTestUtils.compile("test-src/expressions/cast/casting-with-too-many-returns.bal");
+        negativeResult = BTestUtils.compile("test-src/expressions/typecast/casting-with-too-many-returns.bal");
     }
 
     @Test

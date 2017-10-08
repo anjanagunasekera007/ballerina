@@ -139,3 +139,38 @@ function testErrorInForceCasting()(A, error) {
 
     return a, error;
 }
+
+//nullpointer
+function testStructAsAnyToStruct() (Person) {
+    Person p1 = { name:"Supun",
+                    age:25,
+                    parent:{name:"Parent", age:50},
+                    address:{"city":"Kandy", "country":"SriLanka"},
+                    info:{status:"single"},
+                    marks:[24, 81]
+                };
+    any a = p1;
+    Person p2;
+    p2, _ = (Person) a;
+    return p2;
+}
+
+//====================================================== ArrayIndexOutofBounds ===============================================
+//Array index out of bound exception test case
+function testJsonIntToString() (string) {
+    json j = 5;
+    int value;
+    value, _ = (int)j;
+    return <string> value;
+}
+
+function testIncompatibleJsonToInt() (int) {
+    json j = "hello";
+    int value;
+    TypeCastError e;
+    value, e = (int)j;
+    if (e != null) {
+        throw e;
+    }
+    return value;
+}
