@@ -25,8 +25,6 @@ import org.ballerinalang.model.values.BStruct;
 import org.ballerinalang.model.values.BValue;
 import org.ballerinalang.test.utils.BTestUtils;
 import org.ballerinalang.test.utils.CompileResult;
-import org.ballerinalang.util.exceptions.ParserException;
-import org.ballerinalang.util.exceptions.SemanticException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -39,7 +37,6 @@ import org.testng.annotations.Test;
 public class VarDeclaredAssignmentStmtTest {
 
     private CompileResult result;
-    private CompileResult negativeResult;
 
     @BeforeClass
     public void setup() {
@@ -53,7 +50,7 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BInteger) returns[0]).intValue(), 81);
     }
 
-    @Test(enabled = false, description = "Test multiple int to var assignment.")
+    @Test(description = "Test multiple int to var assignment.")
     public void testMultipleIntToVarAssignment() {
         BValue[] returns = BTestUtils.invoke(result, "testMultipleIntToVarAssignment",
                 new BValue[]{});
@@ -150,70 +147,64 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertEquals(((BBoolean) returns[0]).booleanValue(), true);
     }
 
-    //ask to change
-    @Test(enabled = false, description = "Test var in variable def.", expectedExceptions = {ParserException.class})
+    @Test(description = "Test var in variable def.")
     public void testVarTypeInVariableDefStatement() {
         //var type is not not allowed in variable def statements
-        negativeResult = BTestUtils.compile("test-src/types/var/var-type-variable-def-negative.bal");
+        CompileResult res = BTestUtils.compile("test-src/types/var/var-type-variable-def-negative.bal");
+        Assert.assertEquals(res.getErrorCount(), 1);
+        BTestUtils.validateError(res, 0, "mismatched input ';'. expecting {'.', ',', '[', '=', '@'}", 2, 12);
+    }
 
-            }
-    //ask to change
-    @Test(enabled = false,
-            description = "Test var in global variable def.", expectedExceptions = {ParserException.class})
+    @Test(description = "Test var in global variable def.")
     public void testVarTypeInGlobalVariableDefStatement() {
         //var type is not not allowed in global variable def statements
-        BTestUtils.compile("test-src/types/var/global-variable-def-var-type-negative.bal");
+        CompileResult res = BTestUtils.compile("test-src/types/var/global-variable-def-var-type-negative.bal");
+        Assert.assertEquals(res.getErrorCount(), 2);
+        BTestUtils.validateError(res, 0, "extraneous input 'var'", 1, 1);
+        BTestUtils.validateError(res, 1, "mismatched input '='. expecting {'[', Identifier}", 1, 15);
     }
 
-    //ask to change
-    @Test(enabled = false,
-            description = "Test var in service level var def.", expectedExceptions = {ParserException.class})
+    @Test(enabled = false)
     public void testVarTypeInServiceLevelVariableDefStatement() {
         //var type is not not allowed in service level variable def statements
-        BTestUtils.compile("test-src/types/var/service-level-variable-def-with-var-type-negative.bal");
+        CompileResult res = BTestUtils.compile("test-src/types/var/service-level-variable-def-with-var-negative.bal");
+        Assert.assertEquals(res.getErrorCount(), 1);
     }
 
-    //ask to change
-    @Test(enabled = false,
-            expectedExceptions = {SemanticException.class }, expectedExceptionsMessageRegExp = ".*invalid usage of var")
+    @Test(enabled = false)
     public void testVarDeclarationWithStructFieldAssignmentLHSExpr() {
-        //all the expression of LHS of var declaration should be variable references
-        BTestUtils.compile("test-src/types/var/var-invalid-usage-struct-field-access.bal");
+        CompileResult res = BTestUtils.compile("test-src/types/var/var-invalid-usage-struct-field-negative.bal");
+        Assert.assertEquals(res.getErrorCount(), 1);
     }
 
-    //ask to change
-    @Test(enabled = false, expectedExceptions = {SemanticException.class },
-            expectedExceptionsMessageRegExp = ".*'age' is repeated on the left side of assignment")
+    @Test
     public void testVarDeclarationWithDuplicateVariableRefs() {
-        //all the expression of LHS of var declaration should be unique variable references
-        BTestUtils.compile("test-src/types/var/var-duplicate-variable-ref-lhs-expr.bal");
+        CompileResult res = BTestUtils.compile("test-src/types/var/var-duplicate-variable-ref-lhs-negative.bal");
+        Assert.assertEquals(res.getErrorCount(), 1);
+        BTestUtils.validateError(res, 0, "redeclared symbol 'age'", 2, 14);
     }
 
-    //change
-    @Test(enabled = false, expectedExceptions = {SemanticException.class },
-            expectedExceptionsMessageRegExp = ".*invalid usage of var")
+    @Test
     public void testVarDeclarationWithArrayInit() {
-        //var declarations cannot have array init, json init over RHS expr
-        BTestUtils.compile("test-src/types/var/var-declaration-with-array-init.bal");
+        CompileResult res = BTestUtils.compile("test-src/types/var/var-declaration-with-array-negative.bal");
+        Assert.assertEquals(res.getErrorCount(), 1);
+        BTestUtils.validateError(res, 0, "array literal not allowed here", 2, 17);
     }
 
-    //change
-    @Test(enabled = false, expectedExceptions = {SemanticException.class },
-          expectedExceptionsMessageRegExp = "var-declared-symbols.bal:7: no new variables on left side")
+    @Test
     public void testVarDeclarationWithAllDeclaredSymbols() {
-        //var declarations should at least one non declared var ref symbol
-        BTestUtils.compile("test-src/types/var/var-declared-symbols.bal");
+        CompileResult res = BTestUtils.compile("test-src/types/var/var-declared-symbols-negative.bal");
+        Assert.assertEquals(res.getErrorCount(), 1);
+        BTestUtils.validateError(res, 0, "no new variables on left side", 5, 5);
     }
 
-    //change
-    @Test(enabled = false, expectedExceptions = {SemanticException.class },
-            expectedExceptionsMessageRegExp = "var-all-ignored-symbols.bal:3: no new variables on left side")
+    @Test
     public void testVarDeclarationWithAllIgnoredSymbols() {
-        //var declarations should at least one non declared var ref symbol
-        BTestUtils.compile("test-src/types/var/var-all-ignored-symbols.bal");
+        CompileResult res = BTestUtils.compile("test-src/types/var/var-all-ignored-symbols-negative.bal");
+        Assert.assertEquals(res.getErrorCount(), 1);
+        BTestUtils.validateError(res, 0, "no new variables on left side", 3, 5);
     }
 
-    //change and put to new file since this is negative ?
     @Test(enabled = false, description = "Test incompatible json to struct with errors.")
     public void testIncompatibleJsonToStructWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testIncompatibleJsonToStructWithErrors",
@@ -226,7 +217,6 @@ public class VarDeclaredAssignmentStmtTest {
                 " 'parent': incompatible types: expected 'json-object', found 'string'");
     }
 
-    //change and put to new file since this is negative ?
     @Test(enabled = false, description = "Test incompatible json to struct with errors.")
     public void testJsonToStructWithErrors() {
         BValue[] returns = BTestUtils.invoke(result, "testJsonToStructWithErrors",
@@ -239,7 +229,6 @@ public class VarDeclaredAssignmentStmtTest {
                 "incompatible types: expected 'int', found 'string' in json");
     }
 
-    //nullpointer
     @Test(enabled = false, description = "Test compatible struct with force casting.")
     public void testCompatibleStructForceCasting() {
         BValue[] returns = BTestUtils.invoke(result, "testCompatibleStructForceCasting", new BValue[]{});
@@ -254,7 +243,6 @@ public class VarDeclaredAssignmentStmtTest {
         Assert.assertNull(returns[1]);
     }
 
-    //nullpointer
     @Test(enabled = false, description = "Test incompatible struct with force casting.")
     public void testInCompatibleStructForceCasting() {
         BValue[] returns = BTestUtils.invoke(result, "testInCompatibleStructForceCasting", new BValue[]{});
