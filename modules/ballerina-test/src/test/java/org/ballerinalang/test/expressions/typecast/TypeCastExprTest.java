@@ -293,7 +293,7 @@ public class TypeCastExprTest {
         Assert.assertEquals(addressNode.get("city").textValue(), "CA");
     }*/
 
-    @Test(enabled = false)
+    @Test
     public void testStructToStruct() {
         BValue[] returns = BTestUtils.invoke(result, "testStructToStruct", new BValue[]{});
         Assert.assertTrue(returns[0] instanceof BStruct);
