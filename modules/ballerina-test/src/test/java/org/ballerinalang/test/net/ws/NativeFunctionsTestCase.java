@@ -18,7 +18,6 @@
 
 package org.ballerinalang.test.net.ws;
 
-import org.ballerinalang.bre.Context;
 import org.ballerinalang.model.values.BBlob;
 import org.ballerinalang.model.values.BBoolean;
 import org.ballerinalang.model.values.BInteger;
@@ -33,9 +32,6 @@ import org.ballerinalang.test.utils.CompileResult;
 import org.ballerinalang.test.utils.ws.MockWebSocketSession;
 import org.ballerinalang.util.codegen.ProgramFile;
 import org.ballerinalang.util.diagnostic.Diagnostic;
-import org.ballerinalang.util.program.BLangFunctions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -52,7 +48,6 @@ public class NativeFunctionsTestCase {
 
     private CompileResult compileResult;
     private ProgramFile programFile;
-    private Context context;
     private BStruct wsConnection;
     MockWebSocketSession session;
 
@@ -77,7 +72,6 @@ public class NativeFunctionsTestCase {
             Assert.fail("Compilation Errors" + System.lineSeparator() + errorsStr);
         }
         programFile = compileResult.getProgFile();
-        context = new Context(programFile);
 
         session = new MockWebSocketSession(sessionID);
         session.setNegotiatedSubProtocol(negotiatedSubProtocol);
@@ -97,7 +91,7 @@ public class NativeFunctionsTestCase {
     @Test
     public void testGetID() {
         BValue[] inputBValues = {wsConnection};
-        BValue[] returnBValues = BLangFunctions.invokeNew(programFile, "testGetID", inputBValues, context);
+        BValue[] returnBValues = BTestUtils.invoke(compileResult, "testGetID", inputBValues);
         Assert.assertFalse(returnBValues == null || returnBValues.length == 0
                                    || returnBValues[0] == null, "Invalid output");
         Assert.assertTrue(returnBValues[0] instanceof BString, "Invalid return type");
@@ -109,7 +103,7 @@ public class NativeFunctionsTestCase {
     public void testGetNegotiatedSubProtocols() {
         BValue[] inputBValues = {wsConnection};
         BValue[] returnBValues =
-                BLangFunctions.invokeNew(programFile, "testGetNegotiatedSubProtocols", inputBValues, context);
+                BTestUtils.invoke(compileResult, "testGetNegotiatedSubProtocols", inputBValues);
         Assert.assertFalse(returnBValues == null || returnBValues.length == 0
                                    || returnBValues[0] == null, "Invalid output");
         Assert.assertTrue(returnBValues[0] instanceof BString, "Invalid return type");
@@ -121,7 +115,7 @@ public class NativeFunctionsTestCase {
     public void testIsSecure() {
         BValue[] inputBValues = {wsConnection};
         BValue[] returnBValues =
-                BLangFunctions.invokeNew(programFile, "testIsSecure", inputBValues, context);
+                BTestUtils.invoke(compileResult, "testIsSecure", inputBValues);
         Assert.assertFalse(returnBValues == null || returnBValues.length == 0
                                    || returnBValues[0] == null, "Invalid output");
         Assert.assertTrue(returnBValues[0] instanceof BBoolean, "Invalid return type");
@@ -134,7 +128,7 @@ public class NativeFunctionsTestCase {
         session.setIsOpen(true);
         BValue[] inputBValues = {wsConnection};
         BValue[] returnBValues =
-                BLangFunctions.invokeNew(programFile, "testIsOpen", inputBValues, context);
+                BTestUtils.invoke(compileResult, "testIsOpen", inputBValues);
         Assert.assertFalse(returnBValues == null || returnBValues.length == 0
                                    || returnBValues[0] == null, "Invalid output");
         Assert.assertTrue(returnBValues[0] instanceof BBoolean, "Invalid return type");
@@ -145,7 +139,7 @@ public class NativeFunctionsTestCase {
     @Test
     public void testGetUpgradeHeader() {
         BValue[] inputBValues = {wsConnection, new BString(header1Key)};
-        BValue[] returnBValues = BLangFunctions.invokeNew(programFile, "testGetUpgradeHeader", inputBValues, context);
+        BValue[] returnBValues = BTestUtils.invoke(compileResult, "testGetUpgradeHeader", inputBValues);
         Assert.assertFalse(returnBValues == null || returnBValues.length == 0
                                    || returnBValues[0] == null, "Invalid output");
         Assert.assertTrue(returnBValues[0] instanceof BString, "Invalid return type");
@@ -156,7 +150,7 @@ public class NativeFunctionsTestCase {
     @Test
     public void testGetUpgradeHeaders() {
         BValue[] inputBValues = {wsConnection};
-        BValue[] returnBValues = BLangFunctions.invokeNew(programFile, "testGetUpgradeHeaders", inputBValues, context);
+        BValue[] returnBValues = BTestUtils.invoke(compileResult, "testGetUpgradeHeaders", inputBValues);
         Assert.assertFalse(returnBValues == null || returnBValues.length == 0
                                    || returnBValues[0] == null, "Invalid output");
         Assert.assertTrue(returnBValues[0] instanceof BMap, "Invalid return type");
@@ -178,7 +172,7 @@ public class NativeFunctionsTestCase {
         // Test the original WebSocket connection.
         BValue[] inputBValues = {wsConnection};
         BValue[] returnBValues =
-                BLangFunctions.invokeNew(programFile, "testGetParentConnection", inputBValues, context);
+                BTestUtils.invoke(compileResult, "testGetParentConnection", inputBValues);
         Assert.assertFalse(returnBValues == null || returnBValues.length == 0
                                    || returnBValues[0] == null, "Invalid output");
         Assert.assertTrue(returnBValues[0] instanceof BStruct, "Invalid return type");
@@ -186,7 +180,7 @@ public class NativeFunctionsTestCase {
 
         // Test the ID of the Parent WebSocket Connection.
         BValue[] inputResultBValues = {resultStruct};
-        BValue[] returnResultBValues = BLangFunctions.invokeNew(programFile, "testGetID", inputResultBValues, context);
+        BValue[] returnResultBValues = BTestUtils.invoke(compileResult, "testGetID", inputResultBValues);
         Assert.assertFalse(returnResultBValues == null || returnResultBValues.length == 0
                                    || returnResultBValues[0] == null, "Invalid output");
         Assert.assertTrue(returnResultBValues[0] instanceof BString, "Invalid return type");
@@ -198,7 +192,7 @@ public class NativeFunctionsTestCase {
     public void testPushText() {
         String text = "Test Text";
         BValue[] inputBValues = {wsConnection, new BString(text)};
-        BLangFunctions.invokeNew(programFile, "testPushText", inputBValues, context);
+        BTestUtils.invoke(compileResult, "testPushText", inputBValues);
         String testReceived = session.getTextReceived();
         Assert.assertEquals(testReceived, text);
     }
@@ -207,7 +201,7 @@ public class NativeFunctionsTestCase {
     public void testPushBinary() {
         byte[] bytes = {1, 2, 3, 4, 5};
         BValue[] inputBValues = {wsConnection, new BBlob(bytes)};
-        BLangFunctions.invokeNew(programFile, "testPushBinary", inputBValues, context);
+        BTestUtils.invoke(compileResult, "testPushBinary", inputBValues);
         ByteBuffer buffer = session.getBufferReceived();
         Assert.assertEquals(buffer.array(), bytes);
     }
@@ -217,7 +211,7 @@ public class NativeFunctionsTestCase {
         int statusCode = 1001;
         String closeReasonStr = "Test reason";
         BValue[] inputBValues = {wsConnection, new BInteger(statusCode), new BString(closeReasonStr)};
-        BLangFunctions.invokeNew(programFile, "testCloseConnection", inputBValues, context);
+        BTestUtils.invoke(compileResult, "testCloseConnection", inputBValues);
         Assert.assertFalse(session.isOpen());
         CloseReason closeReason = session.getCloseReason();
         Assert.assertEquals(closeReason.getCloseCode().getCode(), statusCode);

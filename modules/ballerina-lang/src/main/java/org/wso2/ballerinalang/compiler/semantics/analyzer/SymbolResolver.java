@@ -17,6 +17,7 @@
 */
 package org.wso2.ballerinalang.compiler.semantics.analyzer;
 
+import org.ballerinalang.model.elements.Flag;
 import org.ballerinalang.model.symbols.SymbolKind;
 import org.ballerinalang.model.tree.OperatorKind;
 import org.ballerinalang.model.types.TypeKind;
@@ -53,6 +54,7 @@ import org.wso2.ballerinalang.compiler.util.diagnotic.DiagnosticPos;
 import org.wso2.ballerinalang.util.Lists;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,7 +117,7 @@ public class SymbolResolver extends BLangNodeVisitor {
 
     public BSymbol resolveExplicitCastOperator(BType sourceType,
                                                BType targetType) {
-        return resolveOperator(Names.CAST_OP, Lists.of(sourceType, targetType));
+        return types.getCastOperator(sourceType, targetType);
     }
 
     public BSymbol resolveImplicitCastOperator(BType sourceType,
@@ -149,6 +151,11 @@ public class SymbolResolver extends BLangNodeVisitor {
                                         OperatorKind opKind,
                                         BType type) {
         return resolveOperator(names.fromString(opKind.value()), Lists.of(type));
+    }
+
+    public BSymbol resolveOperator(Name name, List<BType> types) {
+        ScopeEntry entry = symTable.rootScope.lookup(name);
+        return resolveOperator(entry, types);
     }
 
     public BSymbol resolvePkgSymbol(DiagnosticPos pos, SymbolEnv env, Name pkgAlias) {
@@ -404,6 +411,9 @@ public class SymbolResolver extends BLangNodeVisitor {
             resultType = symTable.errType;
             return;
         }
+        if (symbol.kind == SymbolKind.CONNECTOR) {
+            userDefinedTypeNode.flagSet = EnumSet.of(Flag.CONNECTOR);
+        }
         resultType = symbol.type;
     }
 
@@ -420,11 +430,6 @@ public class SymbolResolver extends BLangNodeVisitor {
 
 
     // private methods
-
-    private BSymbol resolveOperator(Name name, List<BType> types) {
-        ScopeEntry entry = symTable.rootScope.lookup(name);
-        return resolveOperator(entry, types);
-    }
 
     private BSymbol resolveOperator(ScopeEntry entry, List<BType> types) {
         BSymbol foundSymbol = symTable.notFoundSymbol;

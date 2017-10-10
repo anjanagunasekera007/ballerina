@@ -24,6 +24,7 @@ import org.ballerinalang.repository.PackageEntity;
 import org.ballerinalang.repository.PackageRepository;
 import org.ballerinalang.repository.PackageSource;
 import org.ballerinalang.repository.fs.LocalFSPackageRepository;
+import org.ballerinalang.spi.ExtensionPackageRepositoryProvider;
 import org.ballerinalang.spi.SystemPackageRepositoryProvider;
 import org.wso2.ballerinalang.compiler.parser.Parser;
 import org.wso2.ballerinalang.compiler.semantics.analyzer.SymbolEnter;
@@ -35,7 +36,6 @@ import org.wso2.ballerinalang.compiler.util.CompilerOptions;
 import org.wso2.ballerinalang.compiler.util.Name;
 import org.wso2.ballerinalang.compiler.util.Names;
 
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -105,8 +105,6 @@ public class PackageLoader {
         }
 
         // TODO Implement the support for loading a source package
-        log("* Package Entity: " + pkgEntity);
-
         return loadPackage(pkgId, pkgEntity);
     }
 
@@ -118,16 +116,12 @@ public class PackageLoader {
         return loadPackage(pkgID, this.packageRepo.loadPackage(pkgID));
     }
 
-    public BPackageSymbol loadPackageSymbol(List<BLangIdentifier> pkgNameComps, BLangIdentifier version) {
-        List<Name> nameComps = pkgNameComps.stream()
-                .map(identifier -> names.fromIdNode(identifier))
-                .collect(Collectors.toList());
-        PackageID pkgID = new PackageID(nameComps, names.fromIdNode(version));
-        if (packages.containsKey(pkgID)) {
-            return packages.get(pkgID);
-        }
-        BLangPackage pkgNode = loadPackage(pkgID, this.packageRepo.loadPackage(pkgID));
-        return pkgNode.symbol;
+    public BPackageSymbol getPackageSymbol(PackageID pkgId) {
+        return packages.get(pkgId);
+    }
+
+    public BLangPackage loadPackageNode(PackageID pkgId) {
+        return loadPackage(pkgId, this.packageRepo.loadPackage(pkgId));
     }
 
     private BLangPackage loadPackage(PackageID pkgId, PackageEntity pkgEntity) {
@@ -135,6 +129,9 @@ public class PackageLoader {
         BPackageSymbol pSymbol;
 
         // TODO Handle pkgEntity 
+        if (pkgEntity == null) {
+            return null;
+        }
 
         if (pkgEntity.getKind() == PackageEntity.Kind.SOURCE) {
             pkgNode = this.sourceCompile((PackageSource) pkgEntity);
@@ -151,17 +148,8 @@ public class PackageLoader {
     }
 
     private BLangPackage sourceCompile(PackageSource pkgSource) {
-        log("* Package Source: " + pkgSource);
         BLangPackage pkgNode = this.parser.parse(pkgSource);
-        log("* Package Node: " + pkgNode);
-        log("* Compilation Units:- \n" + pkgNode.getCompilationUnits());
-
         return pkgNode;
-    }
-
-    private void log(Object obj) {
-        PrintStream printer = System.out;
-        printer.println(obj);
     }
 
     private void loadPackageRepository(CompilerContext context) {
@@ -184,16 +172,21 @@ public class PackageLoader {
                 SystemPackageRepositoryProvider.class);
         AggregatedPackageRepository repo = new AggregatedPackageRepository();
         loader.forEach(e -> repo.addRepository(e.loadRepository()));
-        log("* System Repo: " + repo.getRepositories());
         return repo;
     }
 
     private PackageRepository loadExtensionRepository() {
-        return null;
+        ServiceLoader<ExtensionPackageRepositoryProvider> loader = ServiceLoader.load(
+                ExtensionPackageRepositoryProvider.class);
+        AggregatedPackageRepository repo = new AggregatedPackageRepository();
+        loader.forEach(e -> repo.addRepository(e.loadRepository()));
+        return repo;
     }
 
     private PackageRepository loadUserRepository() {
-        this.loadExtensionRepository();
-        return null;
+        /* when the user repository concept is implemented, a new CompositePackageRepository must be
+         * created by making the extension repository the parent and returning it.
+         * For now, we are only having the extension repository */
+        return this.loadExtensionRepository();
     }
 }

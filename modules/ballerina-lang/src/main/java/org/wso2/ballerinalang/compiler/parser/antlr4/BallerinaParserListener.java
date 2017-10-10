@@ -1,4 +1,4 @@
-// Generated from BallerinaParser.g4 by ANTLR 4.5.3
+// Generated from /home/laf/dev/wso2/ballerina-1/docs/grammar/BallerinaParser.g4 by ANTLR 4.5.3
 package org.wso2.ballerinalang.compiler.parser.antlr4;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -608,6 +608,16 @@ public interface BallerinaParserListener extends ParseTreeListener {
 	 */
 	void exitVariableDefinitionStatement(BallerinaParser.VariableDefinitionStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link BallerinaParser#connectorDeclarationStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterConnectorDeclarationStmt(BallerinaParser.ConnectorDeclarationStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BallerinaParser#connectorDeclarationStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitConnectorDeclarationStmt(BallerinaParser.ConnectorDeclarationStmtContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link BallerinaParser#mapStructLiteral}.
 	 * @param ctx the parse tree
 	 */
@@ -748,15 +758,15 @@ public interface BallerinaParserListener extends ParseTreeListener {
 	 */
 	void exitWhileStatement(BallerinaParser.WhileStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BallerinaParser#continueStatement}.
+	 * Enter a parse tree produced by {@link BallerinaParser#nextStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterContinueStatement(BallerinaParser.ContinueStatementContext ctx);
+	void enterNextStatement(BallerinaParser.NextStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BallerinaParser#continueStatement}.
+	 * Exit a parse tree produced by {@link BallerinaParser#nextStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitContinueStatement(BallerinaParser.ContinueStatementContext ctx);
+	void exitNextStatement(BallerinaParser.NextStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BallerinaParser#breakStatement}.
 	 * @param ctx the parse tree
