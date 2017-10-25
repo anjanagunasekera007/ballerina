@@ -115,7 +115,7 @@ public class BMap<K, V extends BValue> extends BallerinaMessageDataSource implem
      * @return Flag indicating whether the map is empty or not
      */
     public boolean isEmpty() {
-        return map.size() == 0;
+        return map.isEmpty();
     }
 
     @Override
