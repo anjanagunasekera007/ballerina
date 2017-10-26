@@ -69,8 +69,6 @@ public class LauncherUtils {
         } else if (Files.isDirectory(sourcePath) || srcPathStr.endsWith(BLangConstants.BLANG_SRC_FILE_SUFFIX)) {
             programFile = compile(sourceRootPath, sourcePath);
         } else {
-            System.out.println(" RAN");
-//            System.exit(99);
             throw new BallerinaException("ERROR ERROR ERROR");
         }
 

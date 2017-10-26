@@ -12,8 +12,33 @@ options {
 compilationUnit
     :   packageDeclaration?
         (importDeclaration | namespaceDeclaration)*
-        (annotationAttachment* definition)*
+        (documentation? annotationAttachment* definition)*
         EOF
+    ;
+
+documentation
+    :   DOCUMENTATION BACKTICK doccontent BACKTICK SEMICOLON
+    ;
+
+
+doccontent
+    :   docDescription? (typeBind)*
+    ;
+
+docDescription
+    :   UnQuotedStringLiteral
+    ;
+
+typeBind
+    :   TYPEDEF LEFT_BRACE LEFT_BRACE typeIdentifier RIGHT_BRACE RIGHT_BRACE typeDescription
+    ;
+
+typeDescription
+    :   UnQuotedStringLiteral
+    ;
+
+typeIdentifier
+    :   UnQuotedStringLiteral
     ;
 
 packageDeclaration

@@ -26,6 +26,7 @@ WORKER      : 'worker' ;
 XMLNS       : 'xmlns' ;
 RETURNS     : 'returns';
 VERSION     : 'version';
+DOCUMENTATION : 'documentation';
 
 TYPE_INT        : 'int' ;
 TYPE_FLOAT      : 'float' ;
@@ -112,6 +113,12 @@ RARROW      : '->' ;
 LARROW      : '<-' ;
 AT          : '@' ;
 BACKTICK    : '`' ;
+
+//Documentation symbols
+TYPEDEF      : '$Type' ;
+PARAMETERDEF      : '$Parameters' ;
+RETURNSDEF        : '$Returns' ;
+
 
 // §3.10.1 Integer Literals
 IntegerLiteral
@@ -314,6 +321,10 @@ BooleanLiteral
     
 QuotedStringLiteral
     :   '"' StringCharacters? '"'
+    ;
+
+UnQuotedStringLiteral
+    :   StringCharacters?
     ;
 
 fragment
