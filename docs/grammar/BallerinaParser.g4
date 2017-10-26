@@ -17,29 +17,14 @@ compilationUnit
     ;
 
 documentation
-    :   DOCUMENTATION BACKTICK doccontent BACKTICK SEMICOLON
+    : DocStart docContent DocEnd
+    ;
+
+docContent
+    : UnQuotedStringLiteral
     ;
 
 
-doccontent
-    :   docDescription? (typeBind)*
-    ;
-
-docDescription
-    :   UnQuotedStringLiteral
-    ;
-
-typeBind
-    :   TYPEDEF LEFT_BRACE LEFT_BRACE typeIdentifier RIGHT_BRACE RIGHT_BRACE typeDescription
-    ;
-
-typeDescription
-    :   UnQuotedStringLiteral
-    ;
-
-typeIdentifier
-    :   UnQuotedStringLiteral
-    ;
 
 packageDeclaration
     :   PACKAGE packageName SEMICOLON

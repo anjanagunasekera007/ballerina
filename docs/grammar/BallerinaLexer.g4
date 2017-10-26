@@ -114,11 +114,6 @@ LARROW      : '<-' ;
 AT          : '@' ;
 BACKTICK    : '`' ;
 
-//Documentation symbols
-TYPEDEF      : '$Type' ;
-PARAMETERDEF      : '$Parameters' ;
-RETURNSDEF        : '$Returns' ;
-
 
 // §3.10.1 Integer Literals
 IntegerLiteral
@@ -323,10 +318,6 @@ QuotedStringLiteral
     :   '"' StringCharacters? '"'
     ;
 
-UnQuotedStringLiteral
-    :   StringCharacters?
-    ;
-
 fragment
 StringCharacters
     :   StringCharacter+
@@ -399,6 +390,10 @@ XMLLiteralStart
 
 StringTemplateLiteralStart
     :   TYPE_STRING WS* BACKTICK   { inTemplate = true; } -> pushMode(STRING_TEMPLATE)
+    ;
+
+DocStart
+    :   DOCUMENTATION WS* BACKTICK   { inTemplate = true; } -> pushMode(DOC)
     ;
 
 ExpressionEnd
@@ -731,4 +726,27 @@ fragment
 StringTemplateValidCharSequence
     :   '{'
     |   '\\' ~'\\'
+    ;
+
+
+
+//doc grammar
+mode DOC;
+//doc symbols
+TYPEDEF : '$Type' ;
+PARAMETERDEF    : '$Parameter' ;
+RETURNSDEF  :   '$Returns'  ;
+
+UnQuotedStringLiteral
+    : DocumentationChar+
+    ;
+
+DocumentationChar
+    :   ~[`\\]
+    |   WS
+    |   '\\' [`]
+    ;
+
+DocEnd
+    :    WS* BACKTICK SEMICOLON   -> popMode
     ;
