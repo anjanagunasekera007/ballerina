@@ -61,17 +61,14 @@ public class LauncherUtils {
 
     public static void runProgram(Path sourceRootPath, Path sourcePath, boolean runServices, String[] args) {
         ProgramFile programFile;
-//        } else if (Files.isDirectory(sourcePath)) {
-
         String srcPathStr = sourcePath.toString();
         if (srcPathStr.endsWith(BLangConstants.BLANG_EXEC_FILE_SUFFIX)) {
             programFile = BLangProgramLoader.read(sourcePath);
         } else if (Files.isDirectory(sourcePath) || srcPathStr.endsWith(BLangConstants.BLANG_SRC_FILE_SUFFIX)) {
             programFile = compile(sourceRootPath, sourcePath);
         } else {
-            System.out.println(" RAN");
-//            System.exit(99);
-            throw new BallerinaException("ERROR ERROR ERROR");
+            throw new BallerinaException("Invalid Ballerina source path, it should either be a directory or a file " +
+                    "with a \'" + BLangConstants.BLANG_SRC_FILE_SUFFIX + "\' extension.");
         }
 
         // If there is no main or service entry point, throw an error
