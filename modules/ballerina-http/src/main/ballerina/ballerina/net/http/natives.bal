@@ -117,6 +117,10 @@ public native function <Request req> clone () (Request);
 @Param { value:"value: The header value" }
 public native function <Request req> setHeader (string key, string value);
 
+@Description { value:"Check for 'Expect' Header with '100-continue' as the value"}
+@Return { value:"int: Availability of Expect : 100-continue" }
+public native function <Request req> getExpectHeaderStatus () (boolean);
+
 
 
 public struct Response {

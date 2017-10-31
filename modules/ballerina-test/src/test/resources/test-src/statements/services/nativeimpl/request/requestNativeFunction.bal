@@ -5,6 +5,10 @@ function testAddHeader (http:Request req, string key, string value) (http:Reques
     return req;
 }
 
+function getExpectHeaderStatus (http:Request req) (boolean) {
+    return req.getExpectHeaderStatus();
+}
+
 function testClone (http:Request req) (http:Request) {
     http:Request newReq = req.clone();
     return newReq;
